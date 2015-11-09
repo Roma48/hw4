@@ -5,25 +5,24 @@ namespace Tests;
 use Entity\EntityManager;
 use User\User;
 use Composer\Autoload;
-
+use Layer\Connector\Connector;
 
 class EntityManagerTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testParseEntity()
     {
-        $mock = $this->getMockBuilder('Entity\EntityManager')
-            ->setMethods(array('insert'))
+        $mock = $this->getMockBuilder('Layer\Connector\Connector')
+            ->disableOriginalConstructor()
             ->getMock();
 
-        $mock->method('insert')
-            ->willReturn(1);
+
 
         $user = new User();
         $user->setCreatedAt('1111');
         $user->setUserName('Roma');
 
-        $testEntity = new EntityManager();
+        $testEntity = new EntityManager($user);
 
         $this->assertInstanceOf('User\User' , $user);
 
